@@ -11,6 +11,7 @@ import { FormControl,
          FormGroup} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AuthService } from '../../shared/auth.service';
 
 
 @Component({
@@ -22,14 +23,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class RegisterComponent {
 
+  constructor (private authService: AuthService) {}
+
   formBuilder = inject(FormBuilder);
   registerForm: FormGroup = this.formBuilder.group({
     email: '',
+    username: '',
     password: ''
   });
  
   somefunc() {
     console.log(this.registerForm.value);
+
+    // this.authService.firebaseRegister(this.registerForm.value);
   }
+
+  
 
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { environment } from '../environments/environment';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
@@ -15,7 +14,4 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 
 export class AppComponent {
 
-  // register(form: RegisterForm) {
-  //   createUserWithEmailAndPassword(firebaseAuth, form.email, form.password).then()... 
-  // }
 }
