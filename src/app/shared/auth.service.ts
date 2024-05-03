@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { Auth } from '@angular/fire/auth';
+import { Auth, user, signOut } from '@angular/fire/auth';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@firebase/auth';
 import { RouterService } from './router.service';
-import { Observable, from } from 'rxjs';
+import { LoginForm } from '../interface/login';
 
 
 
@@ -17,23 +17,40 @@ export class AuthService {
   
   isAuthenticated: boolean = false;
   firebaseAuth = inject(Auth);
+  userdata$ = user(this.firebaseAuth);
+  // contains all user data. "$" signifies its an observable. It does not have any function of its own but is a convention.
+
+  currentUserSig = signal<LoginForm | null | undefined>(undefined);
+  // Can have <> 3 values, undefined by default.
+  // We nee undefined because we want to avoid any unusual circumstance.
+  
+
 
   //Register
-  firebaseRegister(registerForm: any) : Observable<void> {
+  firebaseRegister(registerForm: any) {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, registerForm.email, registerForm.password)
-    .then(
-      (response) => updateProfile(
-        response.user,
+    .then(  
+      (res) => updateProfile(
+        res.user,
         { displayName: registerForm.username }
       ),
     );
+    //updateProfile() is for updating username as createUserWithEmailAndPassword() does not contain param to add username
     
-    //trying to convert promise to observable
-    return from(promise);
+    return promise;
   }
 
-  // //Login
-  firebaseLogin() {
+  //Login
+  firebaseLogin(loginForm: any) {
+    const promise = signInWithEmailAndPassword(this.firebaseAuth, loginForm.email, loginForm.password);
+    console.log(promise);
+    
+    return promise;
+  }
 
+  //Logout
+  firebaseLogout() {
+    const promise = signOut(this.firebaseAuth);
+    return promise;
   }
 }

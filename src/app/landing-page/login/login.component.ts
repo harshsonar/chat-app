@@ -12,6 +12,7 @@ import { FormControl,
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from '../../shared/auth.service';
+import { RouterService } from '../../shared/router.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,9 @@ import { AuthService } from '../../shared/auth.service';
 })
 export class LoginComponent {
 
-  constructor (private authService: AuthService) {}
+  constructor (private authService: AuthService, private router: RouterService) {}
+
+  errorMessage: string | null = null;
 
   formBuilder = inject(FormBuilder);
   loginForm: FormGroup = this.formBuilder.group({
@@ -30,9 +33,15 @@ export class LoginComponent {
     password: ''
   });
  
-  somefunc() {
-    console.log(this.loginForm.value);
-
-    // this.authService.firebaseRegister(this.registerForm.value);
+  onSubmit() {
+    this.authService
+    .firebaseLogin(this.loginForm.value)
+    .then(() => {
+      this.errorMessage = null;
+      this.router.routeToHome();
+    })
+    .catch((err) => {
+      this.errorMessage = err.code;
+    });
   }
 }
