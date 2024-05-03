@@ -23,13 +23,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class RegisterComponent {
 
   formBuilder = inject(FormBuilder);
+  // Here I have 'injected' the FormBuilder. You can do this, or, just inject it using the Constructor.
+
   registerForm: FormGroup = this.formBuilder.group({
     email: '',
     password: ''
   });
  
   somefunc() {
-    console.log(this.registerForm.value);
+    this.registerForm.valueChanges.subscribe(console.log);
+    
   }
 
 }
