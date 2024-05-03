@@ -19,6 +19,11 @@
   padding-bottom: 5px;
 }
 
+.usernameInput{
+  margin: 0.20rem;
+  padding-bottom: 5px;
+}
+
 .passwordInput {
   margin: 0.20rem;
   padding-bottom: 5px;

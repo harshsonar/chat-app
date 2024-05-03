@@ -11,28 +11,43 @@ import { FormControl,
          FormGroup} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { AuthService } from '../../shared/auth.service';
+import { RouterService } from '../../shared/router.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ DividerModule, ButtonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule],
+  imports: [DividerModule, ButtonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 
+  constructor (private authService: AuthService, private router: RouterService) {}
+
   formBuilder = inject(FormBuilder);
-  // Here I have 'injected' the FormBuilder. You can do this, or, just inject it using the Constructor.
+  errorMessage: string | null = null;
 
   registerForm: FormGroup = this.formBuilder.group({
-    email: '',
-    password: ''
+    email: ['', Validators.required],
+    username: ['', Validators.required],
+    password: ['', Validators.required]
   });
  
-  somefunc() {
-    this.registerForm.valueChanges.subscribe(console.log);
-    
+  onSubmit() {
+    this.authService
+    .firebaseRegister(this.registerForm.value)
+    .then(() => {
+      alert("Account Created!");
+      this.errorMessage = null;
+      this.registerForm.reset();
+    })
+    .catch((err) => {
+      console.log(err);
+
+      this.errorMessage = err.code;
+      this.registerForm.reset();
+    });
   }
 
 }

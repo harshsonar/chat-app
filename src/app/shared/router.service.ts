@@ -7,4 +7,12 @@ import { Router } from '@angular/router';
 export class RouterService {
 
   constructor(@Inject(Router) public router: Router) { }
+
+  routeToHome() {
+    this.router.navigateByUrl("home");
+  }
+
+  routeToLandingPage() {
+    this.router.navigateByUrl("");
+  }
 }
