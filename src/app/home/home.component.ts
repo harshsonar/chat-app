@@ -14,7 +14,23 @@ export class HomeComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
-    
+
+    this.authService.userdata$.subscribe((user) => {
+      if(user) {
+        this.authService.currentUserSig.set(
+          {
+            email: user.email!,
+            username: user.displayName!
+          }
+        )
+      }
+      else {
+        this.authService.currentUserSig.set(null);
+      }
+      console.log(this.authService.currentUserSig());
+    });
+
+    // The "!" is saying that "user.email" will DEFINITELY have a value and to ignore the null error.
   }
 
   result: boolean = false;
