@@ -3,7 +3,7 @@ import { initializeApp } from '@angular/fire/app';
 import { Auth, user, signOut } from '@angular/fire/auth';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@firebase/auth';
 import { RouterService } from './router.service';
-import { LoginForm } from '../interface/login';
+import { UserInterface } from '../interface/user';
 
 
 
@@ -20,7 +20,7 @@ export class AuthService {
   userdata$ = user(this.firebaseAuth);
   // contains all user data. "$" signifies its an observable. It does not have any function of its own but is a convention.
 
-  currentUserSig = signal<LoginForm | null | undefined>(undefined);
+  currentUserSig = signal<UserInterface | null | undefined>(undefined);
   // Can have <> 3 values, undefined by default.
   // We nee undefined because we want to avoid any unusual circumstance.
   

@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
       console.log(this.authService.currentUserSig());
     });
 
-    // The "!" is saying that "user.email" will DEFINITELY have a value and to ignore the null error.
+    // The "!" is used when "user.email" will DEFINITELY have a value and to ignore the null error.
   }
 
   result: boolean = false;
