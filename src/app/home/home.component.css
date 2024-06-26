@@ -1,18 +1,9 @@
-.container {
-    display: flex;
-    height: 100vh;
-}
-
 .chat-list {
-    width: 35%;
-    margin: 8px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     background-color: rgb(254, 241, 225);
 }
 
 .right-panel {
-    width: 65%;
-    margin: 8px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     background-color: rgb(219, 237, 253);
 }

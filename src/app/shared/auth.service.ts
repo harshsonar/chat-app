@@ -15,7 +15,6 @@ export class AuthService {
   
   constructor(private router: RouterService, private auth: Auth) { }
   
-  isAuthenticated: boolean = false;
   firebaseAuth = inject(Auth);
   userdata$ = user(this.firebaseAuth);
   // contains all user data. "$" signifies its an observable. It does not have any function of its own but is a convention.
